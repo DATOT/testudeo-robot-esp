@@ -10,7 +10,7 @@
  * ! header gói dữ liệu: 00000000 00000000 (u16)
  * !                     (header) [length]
  * ? Giải thích: 8 bit đầu là để xác định gói dữ liệu gửi gì
- * ?              8 bit còn lại là cho độ dài buffer(theo bytes)
+ * ?             8 bit còn lại là cho độ dài buffer(theo bytes)
  * ! buffer: [________(dữ liệu dạng u8, 1 byte), ...]
  *
  *------------------------------------------------------------------------**/
