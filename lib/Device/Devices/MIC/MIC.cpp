@@ -38,7 +38,7 @@ void MIC_Device::setup()
   i2s_start(M_I2S_PORT);
 }
 
-void MIC_Device::task()
+void MIC_Device::loop()
 {
   size_t bytesIn = 0;
   esp_err_t result = i2s_read(M_I2S_PORT, &_sBuffer, M_BUFFER_LEN, &bytesIn, portMAX_DELAY);

@@ -30,7 +30,7 @@ public:
     bool stop(TickType_t timeout = portMAX_DELAY); // Dừng tất cả mọi thứ đang chạy
 
     template <typename T>
-    std::optional<T*> get_first_device(); // lấy thiết bị
+    std::optional<T*> get_device(); // lấy thiết bị
 
     bool is_running() const;
 

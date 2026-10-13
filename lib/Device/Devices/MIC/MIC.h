@@ -29,7 +29,7 @@ private:
 
 public:
   void setup() override;
-  void task() override;
+  void loop() override;
   inline bool has_task() const override {
     return true;
   }
