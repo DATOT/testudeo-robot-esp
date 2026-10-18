@@ -88,7 +88,7 @@ bool DeviceManager::add(BaseDevice &device)
 }
 
 template <typename T>
-inline std::optional<T *> DeviceManager::get_first_device()
+inline std::optional<T> DeviceManager::get_first_device()
 {
     for (const auto* slot : _devices)
     {

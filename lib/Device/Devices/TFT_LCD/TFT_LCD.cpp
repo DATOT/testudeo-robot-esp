@@ -7,8 +7,7 @@ void TFT_LCD_Device::setup()
 
   tft.fillScreen(TFT_BLACK);
 
-
-  _draw_image(_get_face_from_state(_current_state), 0, 0);
+  _draw_image(_get_face_from_state(Neutral), 0, 0);
 }
 
 void TFT_LCD_Device::_draw_image(const char *filename, int x, int y) {
@@ -24,6 +23,9 @@ void TFT_LCD_Device::_draw_image(const char *filename, int x, int y) {
 
 void TFT_LCD_Device::task()
 {
-  
+  if (_current_state != _last_state) {
+        _draw_image(_get_face_from_state(_current_state), 0, 0);
+        _last_state = _current_state;
+  }
 }
 

@@ -24,6 +24,7 @@ public:
 
     ~Signal() { stop(); }
 
+    //! không dùng ngoài DeviceManager
     bool start(UBaseType_t      priority    = 1,
                uint32_t         stack_words = 4096,
                UBaseType_t      queue_len   = 8)
@@ -83,6 +84,7 @@ public:
         vSemaphoreDelete(_slots_mutex); _slots_mutex = nullptr;
         _task = nullptr;
     }
+    //*!-----------------------------------*/
 
     void connect(Slot slot)
     {

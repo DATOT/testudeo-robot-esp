@@ -3,6 +3,8 @@
 
 #include "Device/BaseDevice.h"
 #include <Arduino.h>
+#include <SD.h>
+#include <FS.h>
 
 /**----------------------------------------------
  * *                   INFO
@@ -41,6 +43,41 @@ class TFT_LCD_Device : public BaseDevice
 {
 private:
   TFT_eSPI tft = TFT_eSPI();
+
+  enum _FaceState {
+    Null,
+    Neutral,
+    Confused,
+    Cool,
+    Funny,
+    Laughing,
+    Shocked,
+    Silly,
+    Sleepy,
+    Suprised,
+    Thinking,
+  };
+  _FaceState _current_state;
+  _FaceState _last_state = Null;
+
+  const char* _FACE_TO_FILE_ARR[11] = 
+  {
+    "",
+    "Neutral.bmp",
+    "Confused.bmp",
+    "Cool.bmp",
+    "Funny.bmp",
+    "Laughing.bmp",
+    "Shocked.bmp",
+    "Silly.bmp",
+    "Sleepy.bmp",
+    "Suprised.bmp",
+    "Thinking.bmp",
+  };
+
+  inline const char* _get_face_from_state(_FaceState state) {return _FACE_TO_FILE_ARR[state];}
+
+  void _draw_image(const char *filename, int x, int y);
 
 public:
   void setup() override;

@@ -1,4 +1,5 @@
 #include "./SERIAL_READ.h"
+#include "Package/ConnectedPackage.h"
 
 void SERIAL_READ_Device::loop()
 {
@@ -111,10 +112,14 @@ void SERIAL_READ_Device::_execute_command(uint8_t type, uint8_t *data, uint32_t 
   switch (type)
   {
   case 0x00:
-    /* code */
+    connected.emit(millis());
+
+	ConnectedPackage cnp;
+	cnp.send();
     break;
   
   default:
     break;
   }
 }
+
