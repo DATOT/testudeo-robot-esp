@@ -3,12 +3,11 @@
 
 #include <Arduino.h>
 #include "Signal/Signal.hpp"
+#include "DeviceManager/DeviceManager.hpp"
 /**-----------------------
  * !      WARNING
  * ! Không được thay đổi code ở đây
- *------------------------**/
-class DeviceManager;
-
+ *------------------------**/	 
 class BaseDevice
 {
 protected:

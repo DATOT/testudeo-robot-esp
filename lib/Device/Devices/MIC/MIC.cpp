@@ -1,5 +1,5 @@
 #include "MIC.h"
-
+#include "SERIAL_READ/SERIAL_READ.h"
 void MIC_Device::i2s_install()
 {
   const i2s_config_t i2s_config = {

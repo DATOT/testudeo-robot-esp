@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "Device/BaseDevice.h"
+#include "Signal/Signal.hpp"
 
 #define SR_MAX_PAYLOAD 4096
 
@@ -67,6 +68,9 @@ private:
 public:
   void loop() override;
   inline bool has_loop() const override { return true; }
+
+signals:
+  Signal <int> connected;
 };
 
 #endif // !__SERIAL_READ_H__
