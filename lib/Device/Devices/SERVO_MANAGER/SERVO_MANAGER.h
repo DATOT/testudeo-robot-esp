@@ -35,6 +35,13 @@ private:
   Servo _servo_arm_l;
   Servo _servo_arm_r;
 
+  void _shake_head();
+  void _nod_head();
+  void _wave_r_arm();
+  void _wave_l_arm();
+
+  friend class SERVO_MANAGER_Device_TESTER;
+
 public:
   void setup() override;
   void task() override;

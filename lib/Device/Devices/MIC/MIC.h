@@ -1,36 +1,40 @@
 #ifndef __MIC_H__
 #define __MIC_H__
 
+#include <Arduino.h>
+#include <AudioTools.h>
+#include <AudioTools/CoreAudio/AudioStreams.h>
+
 #include "Device/BaseDevice.h"
 #include "Package/AudioPackage.h"
-#include <Arduino.h>
-#include <driver/i2s.h>
 
 //?------------------ PINS & SAMPLES -----------------*/
 // Connections to INMP441 I2S microphone
 #define M_I2S_WS 22
 #define M_I2S_SD 21
 #define M_I2S_SCK 26
-#define L_R 2
-
-// Use I2S Processor 0
-#define M_I2S_PORT I2S_NUM_0
-#define M_BUFFER_LEN 64
 //?------------------ END OF PINS & SAMPLES -----------------*/
 
 class MIC_Device : public BaseDevice
 {
 private:
-  const uint32_t _SAMPLE_RATE = 16000;
+  static constexpr uint32_t _SAMPLE_RATE = 16000;
+  static constexpr uint16_t _BUFFER_SIZE = 64;
 
-  int16_t _sBuffer[M_BUFFER_LEN];
-  void i2s_install();
-  void i2s_setpin();
+  audio_tools::I2SStream _i2s;
+  audio_tools::AudioInfo _info;
+
+  int16_t _sBuffer[_BUFFER_SIZE * 2];
+
+  bool _reading = false;
+
+  friend class MIC_Device_TESTER;
 
 public:
   void setup() override;
   void loop() override;
-  inline bool has_task() const override {
+  inline bool has_task() const override
+  {
     return true;
   }
 };

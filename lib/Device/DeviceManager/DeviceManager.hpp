@@ -5,6 +5,7 @@
 #include <vector>
 #include <optional>
 
+class BaseDevice;
 #include "Device/BaseDevice.h"
 #include "Signal/Signal.hpp"
 
@@ -36,12 +37,8 @@ public:
 
 //?-------------------------------- GLOBAL SIGNAL ------------------------------//
 signals:
-    /**=======================
-     * *       
-     * * chỗ để tín hiệu dùng chung
-     * todo: hiện chưa có
-     *  
-     *========================**/
+  Signal <int> connecting;
+  Signal <int> connected;
 //?-------------------------------- END OF GLOBAL SIGNAL ------------------------------//
 
 //*-------------------------------- PRIVATE ------------------------------*/

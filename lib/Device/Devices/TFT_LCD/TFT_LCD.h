@@ -2,9 +2,11 @@
 #define __TFT_LCD_H__
 
 #include "Device/BaseDevice.h"
+
 #include <Arduino.h>
-#include <SD.h>
-#include <FS.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7789.h>
+#include <SPI.h>
 
 /**----------------------------------------------
  * *                   INFO
@@ -23,29 +25,24 @@
  *---------------------------------------------**/
 
 //?-------------------------------- NAME, SIZE, PINs, FREQ ------------------------------*/
-#define ST7789_DRIVER
+#define LCD_MOSI 11
+#define LCD_BL 14
+#define LCD_SCLK 12
+#define LCD_CS 10
+#define LCD_DC 8
+#define LCD_RST 9
 
-#define TFT_WIDTH 240
-#define TFT_HEIGHT 320
-
-#define TFT_MOSI 23
-#define TFT_SCLK 18
-#define TFT_CS 5
-#define TFT_DC 2
-#define TFT_RST 4
-
-#define SPI_FREQUENCY 27000000
+#define SPI_FREQUENCY 10000000
 //?-------------------------------- END OF NAME, SIZE, PINs, FREQ -----------------------------*/
-
-#include <TFT_eSPI.h>
 
 class TFT_LCD_Device : public BaseDevice
 {
 private:
-  TFT_eSPI tft = TFT_eSPI();
+  Adafruit_ST7789 _lcd = Adafruit_ST7789(LCD_CS, LCD_DC, LCD_RST);
 
-  enum _FaceState {
-    Null,
+  enum _FaceState
+  {
+    None,
     Neutral,
     Confused,
     Cool,
@@ -58,31 +55,32 @@ private:
     Thinking,
   };
   _FaceState _current_state;
-  _FaceState _last_state = Null;
+  _FaceState _last_state = None;
 
-  const char* _FACE_TO_FILE_ARR[11] = 
-  {
-    "",
-    "Neutral.bmp",
-    "Confused.bmp",
-    "Cool.bmp",
-    "Funny.bmp",
-    "Laughing.bmp",
-    "Shocked.bmp",
-    "Silly.bmp",
-    "Sleepy.bmp",
-    "Suprised.bmp",
-    "Thinking.bmp",
+  const char *_FACE_TO_FILE_ARR[11] =
+      {
+          "",
+          "Neutral.bmp",
+          "Confused.bmp",
+          "Cool.bmp",
+          "Funny.bmp",
+          "Laughing.bmp",
+          "Shocked.bmp",
+          "Silly.bmp",
+          "Sleepy.bmp",
+          "Suprised.bmp",
+          "Thinking.bmp",
   };
 
-  inline const char* _get_face_from_state(_FaceState state) {return _FACE_TO_FILE_ARR[state];}
+  inline const char *_get_face_from_state(_FaceState state) { return _FACE_TO_FILE_ARR[state]; }
 
   void _draw_image(const char *filename, int x, int y);
 
 public:
   void setup() override;
   void task() override;
-  inline bool has_task() const override {
+  inline bool has_task() const override
+  {
     return true;
   }
 };

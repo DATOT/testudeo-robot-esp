@@ -18,3 +18,19 @@ void SERVO_MANAGER_Device::setup()
 void SERVO_MANAGER_Device::task()
 {
 }
+
+void SERVO_MANAGER_Device::_shake_head()
+{
+}
+
+void SERVO_MANAGER_Device::_nod_head()
+{
+}
+
+void SERVO_MANAGER_Device::_wave_r_arm()
+{
+}
+
+void SERVO_MANAGER_Device::_wave_l_arm()
+{
+}

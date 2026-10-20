@@ -1,6 +1,7 @@
 #ifndef __BASE_PACK_H__
 #define __BASE_PACK_H__
 
+#define SEND_ENABLED false
 #include <Arduino.h>
 
 /**------------------------------------------------------------------------
@@ -59,6 +60,7 @@ public:
 	// Gửi gói dữ liệu qua Serial
 	bool send()
 	{
+		#if SEND_ENABLED
 		if (Serial.write(_package_raw_header_bytes, 2) != 2)
 		{
 			return false;
@@ -72,6 +74,7 @@ public:
 			}
 		}
 
+	#endif
 		return true;
 	}
 };

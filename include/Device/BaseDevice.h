@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 #include "Signal/Signal.hpp"
+
+class DeviceManager;
 #include "DeviceManager/DeviceManager.hpp"
 /**-----------------------
  * !      WARNING

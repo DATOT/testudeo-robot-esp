@@ -109,14 +109,17 @@ void SERIAL_READ_Device::_flush_stream_chunk() {
  *?                           EXECUTE
  *------------------------------------------------------------------------**/
 void SERIAL_READ_Device::_execute_command(uint8_t type, uint8_t *data, uint32_t len) {
+  Serial.print("read:");
+  Serial.println(type);
   switch (type)
   {
-  case 0x00:
-    connected.emit(millis());
+  case 0x00: {
+    manager->connecting.emit(millis());
 
-	ConnectedPackage cnp;
-	cnp.send();
+    ConnectedPackage cnp = ConnectedPackage();
+    cnp.send();
     break;
+  }
   
   default:
     break;
