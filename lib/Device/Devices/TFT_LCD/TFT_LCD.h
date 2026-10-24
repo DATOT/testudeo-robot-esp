@@ -4,8 +4,7 @@
 #include "Device/BaseDevice.h"
 
 #include <Arduino.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_ST7789.h>
+#include <bb_spi_lcd.h>
 #include <SPI.h>
 
 /**----------------------------------------------
@@ -25,20 +24,20 @@
  *---------------------------------------------**/
 
 //?-------------------------------- NAME, SIZE, PINs, FREQ ------------------------------*/
-#define LCD_MOSI 11
-#define LCD_BL 14
-#define LCD_SCLK 12
-#define LCD_CS 10
-#define LCD_DC 8
-#define LCD_RST 9
+#define LCD_MOSI 19
+#define LCD_SCLK 18
+#define LCD_CS 17
+#define LCD_DC 16
+#define LCD_RST 5
+#define LCD_BL 10
 
-#define SPI_FREQUENCY 10000000
+#define SPI_FREQUENCY 20000000
 //?-------------------------------- END OF NAME, SIZE, PINs, FREQ -----------------------------*/
 
 class TFT_LCD_Device : public BaseDevice
 {
 private:
-  Adafruit_ST7789 _lcd = Adafruit_ST7789(LCD_CS, LCD_DC, LCD_RST);
+  SPILCD _lcd;
 
   enum _FaceState
   {

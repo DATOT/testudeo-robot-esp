@@ -2,30 +2,11 @@
 
 void TFT_LCD_Device::setup()
 {
-  // Initialize display: 240 width, 320 height
-  _lcd.init(240, 320);
-  _lcd.setRotation(1); // Adjust if your orientation is sideways/upside down
-
-  _lcd.fillScreen(ST77XX_BLACK);
-  rgbLedWrite(RGB_BUILTIN, 0, 0, 0);
-  delay(500);
-
-  _lcd.fillScreen(ST77XX_RED);
-  rgbLedWrite(RGB_BUILTIN, 255, 0, 0);
-  delay(500);
-
-  _lcd.fillScreen(ST77XX_BLUE);
-  rgbLedWrite(RGB_BUILTIN, 0, 0, 255);
-  delay(500);
-
-  rgbLedWrite(RGB_BUILTIN, 0, 0, 0);
-  _lcd.fillScreen(ST77XX_BLACK);
-
-  // Draw confirmation text
-  _lcd.setCursor(20, 50);
-  _lcd.setTextColor(ST77XX_WHITE);
-  _lcd.setTextSize(2);
-  _lcd.print("TEST");
+  // SPI.begin(LCD_SCLK, -1, LCD_MOSI, LCD_CS);
+  spilcdInit(&_lcd, LCD_ST7789, FLAGS_INVERT, SPI_FREQUENCY, LCD_CS, LCD_DC, LCD_RST, LCD_BL, -1, LCD_MOSI, LCD_SCLK, 0);
+  spilcdSetOrientation(&_lcd, LCD_ORIENTATION_90);
+  spilcdFill(&_lcd, 0, DRAW_TO_LCD);
+  spilcdWriteString(&_lcd, 0, 72, "Hello, World", 0xffff, 0x0000, FONT_8x8, DRAW_TO_LCD);
 }
 
 void TFT_LCD_Device::_draw_image(const char *filename, int x, int y)
