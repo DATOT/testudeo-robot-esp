@@ -13,18 +13,36 @@ void SERVO_MANAGER_Device::setup()
 
   _servo_arm_r.setPeriodHertz(SERVO_FREQUENCY);
   _servo_arm_r.attach(SERVO_PIN_ARM_R, 500, 2400);
+
+  _servo_neck_v.write(BASE_AMPLITUDE_NECK);
 }
 
 void SERVO_MANAGER_Device::task()
 {
 }
 
-void SERVO_MANAGER_Device::_shake_head()
+void SERVO_MANAGER_Device::_shake_head(int times)
 {
+  _servo_neck_v.write(MAX_AMPLITUDE_V);
+
+  while (times--) {
+    _servo_neck_v.write(MIN_AMPLITUDE_V);
+    _servo_neck_v.write(MAX_AMPLITUDE_V);
+  }
+
+  _servo_neck_v.write(BASE_AMPLITUDE_NECK);
 }
 
-void SERVO_MANAGER_Device::_nod_head()
+void SERVO_MANAGER_Device::_nod_head(int times)
 {
+  _servo_neck_h.write(MAX_AMPLITUDE_H);
+
+  while (times--) {
+    _servo_neck_h.write(MIN_AMPLITUDE_H);
+    _servo_neck_h.write(MAX_AMPLITUDE_H);
+  }
+
+  _servo_neck_h.write(BASE_AMPLITUDE_NECK);
 }
 
 void SERVO_MANAGER_Device::_wave_r_arm()
