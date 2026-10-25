@@ -45,10 +45,24 @@ void SERVO_MANAGER_Device::_nod_head(int times)
   _servo_neck_h.write(BASE_AMPLITUDE_NECK);
 }
 
-void SERVO_MANAGER_Device::_wave_r_arm()
+void SERVO_MANAGER_Device::_wave_r_arm(int time)
 {
+  int startTime = millis();
+  while (millis() - startTime <= time) {
+    _servo_arm_r.write(MAX_AMPLITUDE_ARM);
+    _servo_arm_r.write(MIN_AMPLITUDE_ARM);
+  }
+
+  _servo_arm_r.write(BASE_AMPLITUDE_ARM);
 }
 
-void SERVO_MANAGER_Device::_wave_l_arm()
+void SERVO_MANAGER_Device::_wave_l_arm(int time)
 {
+  int startTime = millis();
+  while (millis() - startTime <= time) {
+    _servo_arm_l.write(MAX_AMPLITUDE_ARM);
+    _servo_arm_l.write(MIN_AMPLITUDE_ARM);
+  }
+
+  _servo_arm_l.write(BASE_AMPLITUDE_ARM);
 }

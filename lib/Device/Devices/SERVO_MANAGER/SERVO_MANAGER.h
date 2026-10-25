@@ -25,13 +25,16 @@
 #define SERVO_PIN_ARM_R 0
 
 #define SERVO_FREQUENCY 50
-#define BASE_AMPLITUDE_V 90
+#define BASE_AMPLITUDE_NECK 90
+#define BASE_AMPLITUDE_ARM 0
 #define MAX_AMPLITUDE_V 160
 #define MIN_AMPLITUDE_V 40
-#define MAX_AMPLITUDE_h 160
-#define Min_AMPLYTUDE_h 20
+#define MAX_AMPLITUDE_H 160
+#define MIN_AMPLITUDE_H 20
+#define MAX_AMPLITUDE_ARM 160
+#define MIN_AMPLITUDE_ARM 115
 
-#define ANGLE(A) (((A) < 0) ? max(MIN_AMPLITUDE_V, BASE_AMPLITUDE_V + (A) : min(MAX_AMPLITUDE_V, BASE_AMPLITUDE_V + (A))))
+//#define ANGLE(A) (((A) < 0) ? max(MIN_AMPLITUDE_V, BASE_AMPLITUDE_V + (A) : min(MAX_AMPLITUDE_V, BASE_AMPLITUDE_V + (A))))
 
 //?-------------------------------- END OF PINS & FREQ ------------------------------*/
 
@@ -45,11 +48,9 @@ private:
   int angle = 0;  
 
   void _shake_head(int times);
-  void _nod_head();
-  void _wave_r_arm();
-  void _wave_l_arm();
-  void _robot_on();
-  void _safe_angle(Servo cur_servo);
+  void _nod_head(int times);
+  void _wave_r_arm(int time);
+  void _wave_l_arm(int time);
 
   friend class SERVO_MANAGER_Device_TESTER;
 
