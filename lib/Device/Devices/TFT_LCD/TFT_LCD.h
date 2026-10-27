@@ -24,14 +24,14 @@
  *---------------------------------------------**/
 
 //?-------------------------------- NAME, SIZE, PINs, FREQ ------------------------------*/
-#define LCD_MOSI 19
-#define LCD_SCLK 18
-#define LCD_CS 17
-#define LCD_DC 16
-#define LCD_RST 5
-#define LCD_BL 10
+#define LCD_MOSI GPIO_NUM_41
+#define LCD_SCLK GPIO_NUM_42
+#define LCD_CS GPIO_NUM_17
+#define LCD_DC GPIO_NUM_16
+#define LCD_RST GPIO_NUM_5
+#define LCD_BL -1
 
-#define SPI_FREQUENCY 20000000
+#define SPI_FREQUENCY 40000000
 //?-------------------------------- END OF NAME, SIZE, PINs, FREQ -----------------------------*/
 
 class TFT_LCD_Device : public BaseDevice
