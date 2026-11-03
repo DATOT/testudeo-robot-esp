@@ -8,11 +8,6 @@
 #include "WEBSOCKET/WEBSOCKET.h"
 #include "SD_CARD_READER/SD_CARD_READER.h"
 #include "SERVO_MANAGER/SERVO_MANAGER.h"
-#include "LISTEN_BUTTON/LISTEN_BUTTON.hpp"
-#include "DISCONNECT_BUTTON/DISCONNECT_BUTTON.hpp"
-
-#define USE_AUDIO
-#define USE_SD
 
 #ifndef RGB_BUILTIN
 #define RGB_BUILTIN 38
@@ -27,7 +22,8 @@ SD_CARD_READER_Device sdcrd;
 MIC_Device mic;
 AUDIO_OUT_Device aod;
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   pinMode(RGB_BUILTIN, OUTPUT);
   rgbLedWrite(RGB_BUILTIN, 0, 0, 0);
@@ -42,6 +38,7 @@ void setup() {
   Serial.println("[BOOT] Device manager started");
 }
 
-void loop() {
+void loop()
+{
   manager.loop();
 }

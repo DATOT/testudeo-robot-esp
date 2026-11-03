@@ -1,3 +1,6 @@
+#ifndef __AUDIO_OUT_DEVICE_H__
+#define __AUDIO_OUT_DEVICE_H__
+
 #include <Arduino.h>
 #include <ESP_I2S.h>
 #include "Device/BaseDevice.h"
@@ -8,7 +11,8 @@
 #define A_I2S_DIN GPIO_NUM_10
 #define A_BUFFER_SAMPLES 512
 
-class AUDIO_OUT_Device : public BaseDevice {
+class AUDIO_OUT_Device : public BaseDevice
+{
 private:
   static constexpr uint32_t _SAMPLE_RATE = 16000;
   SD_CARD_READER_Device *_sd_card_reader = nullptr;
