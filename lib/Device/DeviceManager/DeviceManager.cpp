@@ -18,9 +18,12 @@ DeviceManager::~DeviceManager()
     {
         for (DeviceSlot *slot : _devices)
         {
-            if (slot->task_mutex) vSemaphoreDelete(slot->task_mutex);
-            if (slot->loop_mutex) vSemaphoreDelete(slot->loop_mutex);
-            if (slot->stopped)    vSemaphoreDelete(slot->stopped);
+            if (slot->task_mutex)
+                vSemaphoreDelete(slot->task_mutex);
+            if (slot->loop_mutex)
+                vSemaphoreDelete(slot->loop_mutex);
+            if (slot->stopped)
+                vSemaphoreDelete(slot->stopped);
             delete slot;
         }
 
@@ -66,15 +69,18 @@ bool DeviceManager::add(BaseDevice &device)
 
     slot->task_mutex = xSemaphoreCreateMutex();
     slot->loop_mutex = xSemaphoreCreateMutex();
-    slot->stopped    = xSemaphoreCreateBinary();
+    slot->stopped = xSemaphoreCreateBinary();
 
     if (slot->task_mutex == nullptr ||
         slot->loop_mutex == nullptr ||
-        slot->stopped    == nullptr)
+        slot->stopped == nullptr)
     {
-        if (slot->task_mutex) vSemaphoreDelete(slot->task_mutex);
-        if (slot->loop_mutex) vSemaphoreDelete(slot->loop_mutex);
-        if (slot->stopped)    vSemaphoreDelete(slot->stopped);
+        if (slot->task_mutex)
+            vSemaphoreDelete(slot->task_mutex);
+        if (slot->loop_mutex)
+            vSemaphoreDelete(slot->loop_mutex);
+        if (slot->stopped)
+            vSemaphoreDelete(slot->stopped);
         delete slot;
         _unlock_mutex(_manager_mutex);
         return false;
@@ -85,21 +91,6 @@ bool DeviceManager::add(BaseDevice &device)
 
     _unlock_mutex(_manager_mutex);
     return true;
-}
-
-template <typename T>
-inline std::optional<T> DeviceManager::get_first_device()
-{
-    for (const auto* slot : _devices)
-    {
-        if (slot == nullptr || slot->device == nullptr)
-            continue;
-
-        if (auto* device = dynamic_cast<T*>(slot->device))
-            return device;
-    }
-
-    return std::nullopt;
 }
 
 void DeviceManager::setup()
@@ -151,7 +142,9 @@ bool DeviceManager::start()
             slot->running = true;
 
             // Xóa sạch tín hiệu stopped cũ (nếu có)
-            while (xSemaphoreTake(slot->stopped, 0) == pdTRUE) {}
+            while (xSemaphoreTake(slot->stopped, 0) == pdTRUE)
+            {
+            }
 
             BaseType_t result = xTaskCreate(
                 _task_entry,
@@ -253,10 +246,12 @@ bool DeviceManager::stop(TickType_t timeout)
     // Đảm bảo không còn ai đang giữ mutex (task/loop/on_command đã xong)
     for (DeviceSlot *slot : _devices)
     {
-        if (!_lock_mutex(slot->task_mutex, timeout)) return false;
+        if (!_lock_mutex(slot->task_mutex, timeout))
+            return false;
         _unlock_mutex(slot->task_mutex);
 
-        if (!_lock_mutex(slot->loop_mutex, timeout)) return false;
+        if (!_lock_mutex(slot->loop_mutex, timeout))
+            return false;
         _unlock_mutex(slot->loop_mutex);
     }
 
@@ -266,7 +261,7 @@ bool DeviceManager::stop(TickType_t timeout)
     for (DeviceSlot *slot : _devices)
         slot->task = nullptr;
 
-    _started  = false;
+    _started = false;
     _stopping = false;
 
     _unlock_mutex(_manager_mutex);

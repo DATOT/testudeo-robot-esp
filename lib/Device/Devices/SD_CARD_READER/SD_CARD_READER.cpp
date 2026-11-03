@@ -2,15 +2,15 @@
 
 void SD_CARD_READER_Device::setup()
 {
-  SPI.begin(SPI_SCK, SPI_MISO, -1, SD_CS);
-  if (!SD.begin(SD_CS))
+  SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI, SD_CS);
+  if (!SD.begin(SD_CS, SPI, 4000000))
   {
     Serial.println("[SD] SD Failed to mount");
     return;
   }
 }
 
-File &SD_CARD_READER_Device::read_file(const char *filePath) const
+File SD_CARD_READER_Device::read_file(const char *filePath) const
 {
   File readFile = SD.open(filePath, FILE_READ);
   if (!readFile)
@@ -22,9 +22,10 @@ File &SD_CARD_READER_Device::read_file(const char *filePath) const
 
 char *SD_CARD_READER_Device::read_file_flush(const char *filePath, int *outLen) const
 {
-  File readFile;
-  if (!(readFile = read_file(filePath)))
+  File readFile = SD.open(filePath, FILE_READ);
+  if (!readFile)
   {
+    Serial.printf("[SD] failed to open file for reading: \"%s\"\n", filePath);
     return nullptr;
   }
 
@@ -47,8 +48,10 @@ char *SD_CARD_READER_Device::read_file_flush(const char *filePath, int *outLen) 
     free(buf);
     return nullptr;
   }
+
   buf[size] = '\0';
   if (outLen)
     *outLen = size;
-  return nullptr;
+
+  return buf;
 }

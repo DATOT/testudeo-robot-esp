@@ -24,8 +24,8 @@
  *---------------------------------------------**/
 
 //?-------------------------------- NAME, SIZE, PINs, FREQ ------------------------------*/
-#define LCD_MOSI GPIO_NUM_41
-#define LCD_SCLK GPIO_NUM_42
+#define LCD_MOSI GPIO_NUM_42
+#define LCD_SCLK GPIO_NUM_41
 #define LCD_CS GPIO_NUM_17
 #define LCD_DC GPIO_NUM_16
 #define LCD_RST GPIO_NUM_5

@@ -11,7 +11,7 @@
 // Connections to INMP441 I2S microphone
 #define M_I2S_WS GPIO_NUM_4
 #define M_I2S_SD GPIO_NUM_6
-#define M_I2S_SCK GPIO_NUM_7
+#define M_I2S_SCK GPIO_NUM_39
 //?------------------ END OF PINS & SAMPLES -----------------*/
 
 class MIC_Device : public BaseDevice

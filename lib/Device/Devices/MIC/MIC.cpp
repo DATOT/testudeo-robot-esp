@@ -1,7 +1,7 @@
 #include "MIC.h"
 #include "SERIAL_READ/SERIAL_READ.h"
 
-// #define SKIP_SETUP
+#define SKIP_SETUP
 
 void MIC_Device::setup()
 {

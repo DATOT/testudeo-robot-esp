@@ -12,13 +12,15 @@
 #include "TFT_LCD/TFT_LCD.h"
 #include "AUDIO_OUT/AUDIO_OUT.h"
 #include "MIC/MIC.h"
+#include "SD_CARD_READER/SD_CARD_READER.h"
 #include "SERIAL_READ/SERIAL_READ.h"
 #include "SERVO_MANAGER/SERVO_MANAGER.h"
 #include "LISTEN_BUTTON/LISTEN_BUTTON.hpp"
 #include "DISCONNECT_BUTTON/DISCONNECT_BUTTON.hpp"
 
 #define USE_AUDIO
-// #define USE_LCD
+//  #define USE_LCD
+#define USE_SD
 // #define NO_MANAGER
 
 #ifndef RGB_BUILTIN
@@ -33,6 +35,9 @@
 #ifndef NO_MANAGER
 DeviceManager manager;
 SERIAL_READ_Device srd = SERIAL_READ_Device();
+#ifdef USE_SD
+SD_CARD_READER_Device sdcrd = SD_CARD_READER_Device();
+#endif
 #ifdef USE_LCD
 TFT_LCD_Device lcd = TFT_LCD_Device();
 #endif
@@ -80,6 +85,12 @@ void setup()
   {
     // ...
   }
+#ifdef USE_SD
+  if (!manager.add(sdcrd))
+  {
+    // ...
+  }
+#endif
 #ifdef USE_LCD
   if (!manager.add(lcd))
   {
@@ -118,13 +129,14 @@ void setup()
   Serial.println("SETUP OK");
   manager.start();
 #endif
-  delay(2000);
+  delay(3000);
   Serial.println("BOOT OK");
+  // Serial.println(sdcrd.read_file_flush("/test.txt"));
+  aod.play_fallback("hello");
 }
 
 void loop()
 {
-
 #ifndef NO_MANAGER
   manager.loop();
 #endif
