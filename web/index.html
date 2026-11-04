@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <title>Orbit — Robot workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Orbit home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>orbit<span class="brand-dot">.</span></span>
+      </a>
+
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Workspace">
+        <button class="nav-item active" type="button" data-tab="presentation" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect><path d="M8 20h8M12 16.5V20M8 9h8M8 12.5h5"></path></svg>
+          <span>Presentation</span>
+          <span class="nav-live-dot" aria-hidden="true"></span>
+        </button>
+        <button class="nav-item" type="button" data-tab="pomodoro">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 1.5M9 2h6M12 2v3M18.5 6.5 20 5"></path></svg>
+          <span>Pomodoro</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="robot-mini">
+          <div class="robot-avatar small" aria-hidden="true"><span class="robot-eye left"></span><span class="robot-eye right"></span><span class="robot-mouth"></span><span class="robot-antenna"></span></div>
+          <div><strong>Testudeo Robot</strong><span>Voice companion</span></div>
+          <span class="presence-dot" title="Connection status"></span>
+        </div>
+        <div class="sidebar-foot">A LITTLE MORE HUMAN<span>v1.0 · PREVIEW</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-sep">/</span><strong id="topbar-title">Presentation</strong></div>
+        <div class="topbar-actions">
+          <span class="connection-pill" id="connection-pill"><span class="status-light"></span><span id="connection-label">Not connected</span></span>
+          <button class="connect-button" id="connect-button" type="button">Connect robot <span aria-hidden="true">↗</span></button>
+        </div>
+      </header>
+
+      <section class="view active" id="presentation-view" aria-labelledby="presentation-heading">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> YOUR ROBOT, IN THE ROOM</div>
+            <h1 id="presentation-heading">Presentation <span>mode</span></h1>
+            <p class="heading-copy">Talk naturally. Your robot is listening when you say so.</p>
+          </div>
+          <div class="session-chip"><span class="session-icon">✳</span> LIVE SESSION</div>
+        </div>
+
+        <div class="presentation-grid">
+          <section class="robot-panel panel" aria-label="Robot listening controls">
+            <div class="panel-topline"><span>VOICE CONTROL</span><button class="more-button" type="button" aria-label="More voice control information" title="The robot's onboard microphone is controlled through the WebSocket.">···</button></div>
+            <div class="robot-stage">
+              <div class="stage-glow"></div>
+              <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+              <div class="robot-avatar hero-robot" id="hero-robot" aria-label="Robot avatar"><span class="robot-ear left"></span><span class="robot-ear right"></span><span class="robot-eye left"></span><span class="robot-eye right"></span><span class="robot-cheek left"></span><span class="robot-cheek right"></span><span class="robot-mouth"></span><span class="robot-antenna"></span><span class="antenna-dot"></span></div>
+              <div class="spark spark-a">✳</div><div class="spark spark-b">·</div><div class="spark spark-c">+</div>
+            </div>
+            <div class="robot-name-row"><div><h2>Testudeo</h2><p><span class="presence-dot"></span><span id="robot-status">Ready when you are</span></p></div><span class="robot-tag">ROBOT 01</span></div>
+            <div class="listen-card" id="listen-card">
+              <div class="listen-copy"><strong id="listen-title">Microphone is off</strong><span id="listen-description">Turn on listening to let your robot hear you.</span></div>
+              <button class="mic-button" id="mic-button" type="button" aria-label="Start robot microphone listening" aria-pressed="false" title="Enable the robot's microphone">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6"></path></svg>
+              </button>
+            </div>
+            <div class="panel-note"><span class="note-lock">◉</span> Microphone control is only available in Presentation mode.</div>
+          </section>
+
+          <section class="chat-panel panel" aria-label="Chat with robot">
+            <div class="chat-header"><div><div class="panel-topline">ROBOT CHAT</div><h2>A thought, a question,<br>anything.</h2></div><div class="chat-spark">✳</div></div>
+            <div class="chat-context"><span class="context-avatar">T</span><span>Chatting with <strong>Testudeo</strong></span><span class="context-status"><span class="presence-dot"></span><span id="chat-status">offline</span></span></div>
+            <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions text">
+              <div class="message-row robot-message">
+                <div class="message-avatar">T</div>
+                <div class="message-content"><span class="message-author">TESTUDEO <time>JUST NOW</time></span><div class="message-bubble">Hey there! I'm ready when you are. You can talk to me or send a message here. <span class="wave-emoji">✳</span></div></div>
+              </div>
+              <div class="empty-hint" id="empty-hint">Your conversation will show up here.</div>
+            </div>
+            <form class="composer" id="chat-form">
+              <label class="sr-only" for="chat-input">Message Testudeo</label>
+              <input id="chat-input" type="text" placeholder="Write a message…" autocomplete="off" maxlength="1000">
+              <button class="send-button" type="submit" aria-label="Send message" title="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.5 18-3.8-7.7L2 9.5 21 3Z"></path><path d="M9.7 13.3 21 3"></path></svg></button>
+            </form>
+            <div class="composer-foot"><span>↵ <span>to send</span></span><span>ROBOT CHAT <span class="tiny-star">✳</span></span></div>
+          </section>
+        </div>
+
+        <footer class="page-footer"><span>Made for moments that matter.</span><span>TESTUDEO <span class="tiny-star">✳</span> ROBOT WORKSPACE</span></footer>
+      </section>
+
+      <section class="view pomodoro-view" id="pomodoro-view" aria-labelledby="pomodoro-heading" hidden>
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> FIND YOUR FOCUS</div>
+            <h1 id="pomodoro-heading">Pomodoro <span>mode</span></h1>
+            <p class="heading-copy">One thing at a time. Take a little breather in between.</p>
+          </div>
+          <div class="session-chip"><span class="session-icon">✳</span> FOCUS SESSION</div>
+        </div>
+        <div class="timer-layout">
+          <section class="timer-panel panel" aria-label="Pomodoro timer">
+            <div class="panel-topline"><span>THE FOCUS TIMER</span><span class="fixed-duration">FIXED CYCLE · 20 / 5</span></div>
+            <div class="timer-display-wrap">
+              <svg class="timer-ring" viewBox="0 0 320 320" aria-hidden="true"><circle class="timer-ring-track" cx="160" cy="160" r="143"></circle><circle class="timer-ring-progress" id="timer-progress" cx="160" cy="160" r="143"></circle></svg>
+              <div class="timer-center"><div class="timer-phase" id="timer-phase">FOCUS TIME</div><div class="timer-display" id="timer-display" role="timer" aria-live="off">20:00</div><div class="timer-subtitle" id="timer-subtitle">A little progress adds up.</div></div>
+            </div>
+            <div class="timer-controls"><button class="timer-action secondary" id="reset-timer" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"></path><path d="M3 3v5h5"></path></svg><span>Reset</span></button><button class="timer-action primary" id="start-timer" type="button"><svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7V5Z"></path></svg><span>Start focus</span></button><button class="timer-action secondary" id="skip-timer" type="button"><span>Skip</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 10 7-10 7V5ZM19 5v14"></path></svg></button></div>
+            <p class="timer-cycle-note"><span class="tiny-star">✳</span> 20 min focus <span class="cycle-divider">/</span> 5 min break <span class="cycle-divider">/</span> repeat as long as you like</p>
+          </section>
+          <aside class="timer-aside">
+            <div class="aside-card panel"><span class="aside-icon focus-icon">✳</span><div class="aside-label">UP NEXT</div><h2 id="up-next-title">A little break</h2><p id="up-next-copy">After 20 minutes, take 5 to stretch, sip some water, or just breathe.</p><div class="up-next-time" id="up-next-time">05 <span>MIN</span></div></div>
+            <div class="aside-card quote-card"><span class="quote-mark">“</span><p>Small steps every day add up to big things.</p><span class="quote-credit">YOUR ROBOT BELIEVES IN YOU <span class="tiny-star">✳</span></span></div>
+          </aside>
+        </div>
+        <footer class="page-footer"><span>Focus on one thing. Let the rest wait.</span><span>TESTUDEO <span class="tiny-star">✳</span> ROBOT WORKSPACE</span></footer>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+</body>
+</html>
